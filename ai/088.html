@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>088 - 角度当て分度器</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>088. 角度当て分度器</h1>
+  <div class="info">この角度は何度？ スコア: <span id="sc">0</span></div><canvas id="c" width="240" height="160"></canvas><br><input id="in" type="number" style="width:70px">度 <button onclick="chk()">回答</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let ang,sc=0;
+  function next(){ang=Math.floor(Math.random()*16+1)*10;x.clearRect(0,0,240,160);x.beginPath();x.moveTo(120,140);x.lineTo(220,140);
+  x.moveTo(120,140);x.lineTo(120+Math.cos(ang*Math.PI/180)*100,140-Math.sin(ang*Math.PI/180)*100);x.stroke();}
+  function chk(){if(Math.abs(Number(document.getElementById('in').value)-ang)<=10){sc++;document.getElementById('sc').textContent=sc;next();}else alert('正解は '+ang+'度');}
+  next();</script>
+</body>
+</html>

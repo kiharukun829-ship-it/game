@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>028 - タイミングバー</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>028. タイミングバー</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><canvas id="c" width="360" height="60"></canvas><button onclick="hit()">緑のゾーンで止めろ！</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let pos=0,dir=4,sc=0;
+  function loop(){pos+=dir;if(pos<0||pos>350)dir*=-1;x.clearRect(0,0,360,60);x.fillStyle='#86efac';x.fillRect(150,0,60,60);x.fillStyle='#ef4444';x.fillRect(pos,0,10,60);requestAnimationFrame(loop);}
+  function hit(){if(pos>=145&&pos<=210){sc+=10;dir*=1.1;}else{sc=0;dir=4;}document.getElementById('sc').textContent=sc;}
+  loop();</script>
+</body>
+</html>

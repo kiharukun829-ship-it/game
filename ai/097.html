@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>097 - 画面サイズぴったり停止</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>097. 画面サイズぴったり停止</h1>
+  <div class="info">赤い枠（200px）ぴったりで止めろ！</div><canvas id="c" width="320" height="320"></canvas><button onclick="stop()">ストップ</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let sz=20,d=3,run=true;
+  function stop(){if(!run){run=true;return;}run=false;alert(`サイズ: ${sz}px（誤差 ${Math.abs(sz-200)}px）`);}
+  function loop(){if(run){sz+=d;if(sz>300||sz<20)d*=-1;}x.clearRect(0,0,320,320);x.strokeStyle='#ef4444';x.strokeRect(60,60,200,200);
+  x.fillStyle='rgba(59,130,246,0.4)';x.fillRect(160-sz/2,160-sz/2,sz,sz);requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

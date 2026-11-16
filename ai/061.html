@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>061 - 大きい数字を選べ！</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>061. 大きい数字を選べ！</h1>
+  <div class="info">計算して大きい方をクリック！ スコア: <span id="sc">0</span></div><button id="b1" style="font-size:22px;padding:15px" onclick="pick(0)"></button> vs <button id="b2" style="font-size:22px;padding:15px" onclick="pick(1)"></button>
+  <script>let v1,v2,sc=0;function next(){const a=Math.floor(Math.random()*20)+5,b=Math.floor(Math.random()*20)+5,c=Math.floor(Math.random()*20)+5,d=Math.floor(Math.random()*20)+5;
+  v1=a+b;v2=c+d;if(v1===v2)return next();b1.textContent=`${a} + ${b}`;b2.textContent=`${c} + ${d}`;}
+  function pick(i){if((i===0&&v1>v2)||(i===1&&v2>v1))sc++;else sc=0;document.getElementById('sc').textContent=sc;next();}
+  next();</script>
+</body>
+</html>

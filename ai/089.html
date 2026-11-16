@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>089 - 一筆書きパネル</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(4,55px);gap:4px;justify-content:center}.c{width:55px;height:55px;border:1px solid #333;background:#eee;cursor:pointer}.v{background:#3b82f6}</style>
+</head>
+<body>
+  <h1>089. 一筆書きパネル</h1>
+  <div class="info" id="st">全16マスを一筆書きで塗ろう</div><div class="g" id="g"></div><button onclick="init()">リセット</button>
+  <script>let vis,cur;function init(){vis=Array(16).fill(false);cur=-1;st.textContent='好きなマスから開始';draw();}
+  function draw(){const g=document.getElementById('g');g.innerHTML='';vis.forEach((v,i)=>{const d=document.createElement('div');d.className='c'+(v?' v':'');
+  d.onclick=()=>{if(v)return;if(cur===-1||(Math.abs((cur>>2)-(i>>2))+Math.abs((cur&3)-(i&3))===1)){vis[i]=true;cur=i;draw();if(vis.every(x=>x))st.textContent='🎉 クリア！';}};g.appendChild(d);});}
+  init();</script>
+</body>
+</html>

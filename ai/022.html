@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>022 - 反射神経テスト</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>022. 反射神経テスト</h1>
+  <div id="box" style="width:300px;height:180px;border:1px solid #333;margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;background:#eee">クリックで開始</div>
+  <script>let st=0,t0,tm;const box=document.getElementById('box');
+  box.onclick=()=>{if(st===0){st=1;box.style.background='#fca5a5';box.textContent='緑になるまで待って...';tm=setTimeout(()=>{st=2;box.style.background='#86efac';box.textContent='今だ！クリック！';t0=performance.now();},1500+Math.random()*2500);}
+  else if(st===1){clearTimeout(tm);st=0;box.style.background='#eee';box.textContent='フライング！クリックで再挑戦';}
+  else{const ms=Math.round(performance.now()-t0);st=0;box.style.background='#eee';box.textContent=`記録: ${ms} ms（クリックで再挑戦）`;}};</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>095 - カウントアップ21（CPU対戦）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>095. カウントアップ21（CPU対戦）</h1>
+  <div class="info">現在: <span id="n">0</span>（21を言ったら負け）</div><div id="msg" style="margin:12px">1〜3つ進めてください</div><button onclick="add(1)">+1</button><button onclick="add(2)">+2</button><button onclick="add(3)">+3</button><button onclick="init()">リセット</button>
+  <script>let n;function init(){n=0;document.getElementById('n').textContent=0;msg.textContent='あなたの番';}
+  function add(v){if(n>=21)return;n=Math.min(21,n+v);document.getElementById('n').textContent=n;if(n===21){msg.textContent='21を言いました…負け！';return;}
+  const c=Math.min(21-n,Math.floor(Math.random()*3)+1);n+=c;document.getElementById('n').textContent=n;msg.textContent=n===21?`CPUが+${c}して21！あなたの勝ち！`:`CPUが+${c}しました`;}
+  init();</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>066 - 旗上げゲーム（指示通り押せ）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>066. 旗上げゲーム（指示通り押せ）</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><div id="cmd" style="font-size:26px;margin:20px"></div><button onclick="act('赤')">🚩 赤を上げる</button><button onclick="act('白')">🏳️ 白を上げる</button>
+  <script>let ans,sc=0;function next(){const c=Math.random()<0.5?'赤':'白',neg=Math.random()<0.35;ans=neg?(c==='赤'?'白':'赤'):c;cmd.textContent=neg?`${c}を上げないで！`:`${c}を上げて！`;}
+  function act(v){if(v===ans)sc++;else sc=0;document.getElementById('sc').textContent=sc;next();}
+  next();</script>
+</body>
+</html>

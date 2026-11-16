@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>016 - ヒット＆ブロー（数当て4桁）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>016. ヒット＆ブロー（数当て4桁）</h1>
+  <div class="info">重複なしの4桁の数字を当てよう</div><input id="in" maxlength="4" style="font-size:18px;width:90px;text-align:center"><button onclick="guess()">判定</button><button onclick="init()">リセット</button><div id="log" style="margin-top:15px"></div>
+  <script>let ans,cnt;function init(){const d=['0','1','2','3','4','5','6','7','8','9'].sort(()=>Math.random()-0.5);ans=d.slice(0,4).join('');cnt=0;log.innerHTML='';document.getElementById('in').value='';}
+  function guess(){const v=document.getElementById('in').value;if(!/^\d{4}$/.test(v)||new Set(v).size!==4){alert('重複なしの4桁を入力');return;}
+  cnt++;let h=0,b=0;for(let i=0;i<4;i++){if(v[i]===ans[i])h++;else if(ans.includes(v[i]))b++;}
+  log.innerHTML=`<div>${cnt}回目: ${v} → ${h} HIT / ${b} BLOW ${h===4?'🎉正解！':''}</div>`+log.innerHTML;}
+  init();</script>
+</body>
+</html>

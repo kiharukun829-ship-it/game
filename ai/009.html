@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>009 - フラッピーバード風</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>009. フラッピーバード風</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><canvas id="c" width="360" height="440"></canvas><p>クリック / スペースで上昇</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let y,vy,pp,sc,ov,fr;
+  function init(){y=200;vy=0;pp=[];sc=0;ov=false;fr=0;document.getElementById('sc').textContent=0;}
+  function flap(){if(ov)init();else vy=-7;}
+  c.onmousedown=flap;document.onkeydown=e=>{if(e.code==='Space'){e.preventDefault();flap();}};
+  function loop(){if(!ov){fr++;vy+=0.4;y+=vy;if(y<0||y>420)ov=true;
+  if(fr%95===0)pp.push({x:360,top:60+Math.random()*200,passed:false});
+  pp.forEach(p=>{p.x-=2.5;if(!p.passed&&p.x<80){p.passed=true;sc++;document.getElementById('sc').textContent=sc;}
+  if(100>p.x&&80<p.x+40&&(y<p.top||y+20>p.top+110))ov=true;});pp=pp.filter(p=>p.x>-40);}
+  x.clearRect(0,0,360,440);x.fillStyle='#f59e0b';x.fillRect(80,y,20,20);
+  x.fillStyle='#16a34a';pp.forEach(p=>{x.fillRect(p.x,0,40,p.top);x.fillRect(p.x,p.top+110,40,440);});
+  if(ov){x.fillStyle='#000';x.font='bold 24px sans-serif';x.textAlign='center';x.fillText('GAME OVER',180,220);}requestAnimationFrame(loop);}
+  init();loop();</script>
+</body>
+</html>

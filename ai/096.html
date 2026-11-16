@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>096 - 早押しアルファベット</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>096. 早押しアルファベット</h1>
+  <div class="info">表示されたキーを押せ！ スコア: <span id="sc">0</span></div><div id="ch" style="font-size:48px;margin:20px">A</div>
+  <script>let cur='A',sc=0;function next(){cur=String.fromCharCode(65+Math.floor(Math.random()*26));ch.textContent=cur;}
+  document.onkeydown=e=>{if(e.key.toUpperCase()===cur){sc++;document.getElementById('sc').textContent=sc;next();}};
+  next();</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>005 - シューティング</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>005. シューティング</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><canvas id="c" width="360" height="440"></canvas><button onclick="init()">リセット</button><p>左右キー + スペース</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let p,bl,en,k={},sc,ov,cd,fr;
+  function init(){p=180;bl=[];en=[];sc=0;ov=false;cd=0;fr=0;document.getElementById('sc').textContent=0;}
+  document.onkeydown=e=>k[e.code]=true;document.onkeyup=e=>k[e.code]=false;
+  function loop(){if(!ov){fr++;if(k.ArrowLeft)p=Math.max(15,p-5);if(k.ArrowRight)p=Math.min(345,p+5);
+  if(cd>0)cd--;if(k.Space&&cd===0){bl.push({x:p,y:400});cd=12;}
+  if(fr%40===0)en.push({x:Math.random()*330,y:-20});
+  bl.forEach(b=>b.y-=8);bl=bl.filter(b=>b.y>-10);
+  for(let i=en.length-1;i>=0;i--){const e=en[i];e.y+=2.5;if(e.y>420)ov=true;
+  for(let j=bl.length-1;j>=0;j--){if(bl[j].x>e.x&&bl[j].x<e.x+26&&bl[j].y>e.y&&bl[j].y<e.y+26){bl.splice(j,1);en.splice(i,1);sc+=100;document.getElementById('sc').textContent=sc;break;}}}}
+  x.clearRect(0,0,360,440);x.fillStyle='#2563eb';x.fillRect(p-14,405,28,16);x.fillStyle='#111';bl.forEach(b=>x.fillRect(b.x-2,b.y,4,10));
+  x.fillStyle='#ef4444';en.forEach(e=>x.fillRect(e.x,e.y,26,26));
+  if(ov){x.fillStyle='#000';x.font='bold 24px sans-serif';x.textAlign='center';x.fillText('GAME OVER',180,220);}requestAnimationFrame(loop);}
+  init();loop();</script>
+</body>
+</html>

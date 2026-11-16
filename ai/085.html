@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>085 - コイン集め迷宮</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>085. コイン集め迷宮</h1>
+  <div class="info">コイン: <span id="sc">0</span> / 10</div><canvas id="c" width="320" height="320"></canvas><p>矢印キーで移動</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let px=20,py=20,coins=Array.from({length:10},()=>({x:20+Math.random()*280,y:20+Math.random()*280})),sc=0;
+  document.onkeydown=e=>{if(e.key==='ArrowUp')py-=12;if(e.key==='ArrowDown')py+=12;if(e.key==='ArrowLeft')px-=12;if(e.key==='ArrowRight')px+=12;
+  coins=coins.filter(o=>{if(Math.hypot(px-o.x,py-o.y)<18){sc++;document.getElementById('sc').textContent=sc;return false;}return true;});draw();};
+  function draw(){x.clearRect(0,0,320,320);x.fillStyle='#facc15';coins.forEach(o=>{x.beginPath();x.arc(o.x,o.y,7,0,7);x.fill();});x.fillStyle='#2563eb';x.fillRect(px-8,py-8,16,16);}
+  draw();</script>
+</body>
+</html>

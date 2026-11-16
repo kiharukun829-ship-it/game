@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>008 - ランゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>008. ランゲーム</h1>
+  <div class="info">距離: <span id="sc">0</span> m</div><canvas id="c" width="500" height="220"></canvas><p>クリック / スペースで2段ジャンプ</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let py,vy,jp,ob,sc,ov,tm;
+  function init(){py=150;vy=0;jp=0;ob=[];sc=0;ov=false;tm=50;}
+  function jump(){if(ov){init();return;}if(jp<2){vy=-10.5;jp++;}}
+  c.onmousedown=jump;document.onkeydown=e=>{if(e.code==='Space'){e.preventDefault();jump();}};
+  function loop(){if(!ov){sc+=0.2;document.getElementById('sc').textContent=Math.floor(sc);vy+=0.6;py+=vy;if(py>=150){py=150;vy=0;jp=0;}
+  if(--tm<=0){ob.push({x:500,h:24+Math.random()*22});tm=60+Math.random()*50;}
+  for(let i=ob.length-1;i>=0;i--){ob[i].x-=5;if(ob[i].x<-20)ob.splice(i,1);if(50+22>ob[i].x&&54<ob[i].x+20&&py+28>180-ob[i].h)ov=true;}}
+  x.clearRect(0,0,500,220);x.beginPath();x.moveTo(0,180);x.lineTo(500,180);x.stroke();x.fillStyle='#222';x.fillRect(50,py,24,30);
+  x.fillStyle='#ef4444';ob.forEach(o=>x.fillRect(o.x,180-o.h,20,o.h));if(ov){x.fillStyle='#000';x.font='bold 22px sans-serif';x.textAlign='center';x.fillText('GAME OVER',250,110);}requestAnimationFrame(loop);}
+  init();loop();</script>
+</body>
+</html>

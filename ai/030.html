@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>030 - りんごキャッチ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>030. りんごキャッチ</h1>
+  <div class="info">スコア: <span id="sc">0</span> / ライフ: <span id="lf">3</span></div><canvas id="c" width="360" height="400"></canvas><button onclick="init()">リセット</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let px=150,it=[],sc=0,lf=3,fr=0;
+  function init(){it=[];sc=0;lf=3;fr=0;ui();}
+  function ui(){document.getElementById('sc').textContent=sc;document.getElementById('lf').textContent=lf;}
+  c.onmousemove=e=>{const r=c.getBoundingClientRect();px=Math.max(0,Math.min(300,e.clientX-r.left-30));};
+  function loop(){if(lf>0){fr++;if(fr%35===0)it.push({x:Math.random()*340,y:0,bad:Math.random()<0.25});
+  for(let i=it.length-1;i>=0;i--){it[i].y+=4;if(it[i].y>365&&it[i].x>px-10&&it[i].x<px+60){if(it[i].bad)lf--;else sc+=10;ui();it.splice(i,1);}else if(it[i].y>400)it.splice(i,1);}}
+  x.clearRect(0,0,360,400);x.fillStyle='#333';x.fillRect(px,375,60,12);
+  it.forEach(o=>{x.fillStyle=o.bad?'#111':'#ef4444';x.beginPath();x.arc(o.x,o.y,8,0,7);x.fill();});
+  if(lf<=0){x.fillStyle='#000';x.font='bold 24px sans-serif';x.textAlign='center';x.fillText('GAME OVER',180,200);}requestAnimationFrame(loop);}
+  init();loop();</script>
+</body>
+</html>

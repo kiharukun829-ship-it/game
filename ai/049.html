@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>049 - 数字大小バトル（5枚勝負）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>049. 数字大小バトル（5枚勝負）</h1>
+  <div class="info">スコア: あなた <span id="s1">0</span> - <span id="s2">0</span> CPU</div><div id="hand"></div><div id="msg" style="margin:12px"></div><button onclick="init()">リセット</button>
+  <script>let h1,h2,s1,s2;function init(){h1=[1,2,3,4,5];h2=[1,2,3,4,5].sort(()=>Math.random()-0.5);s1=0;s2=0;msg.textContent='出すカードを選択';draw();}
+  function draw(){document.getElementById('s1').textContent=s1;document.getElementById('s2').textContent=s2;hand.innerHTML='';
+  h1.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v;b.onclick=()=>{const c=h2.pop();h1.splice(i,1);if(v>c)s1++;else if(c>v)s2++;msg.textContent=`あなた:${v} vs CPU:${c}`;draw();};hand.appendChild(b);});}
+  init();</script>
+</body>
+</html>

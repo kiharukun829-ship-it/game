@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>082 - ミニゴルフパター</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>082. ミニゴルフパター</h1>
+  <div class="info">打数: <span id="st">0</span></div><canvas id="c" width="440" height="240"></canvas><p>ボールをドラッグして引っ張って打つ</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let bx=60,by=120,vx=0,vy=0,drag=false,mx=0,my=0,st=0;
+  c.onmousedown=e=>{const r=c.getBoundingClientRect();if(Math.hypot(e.clientX-r.left-bx,e.clientY-r.top-by)<20)drag=true;};
+  c.onmousemove=e=>{const r=c.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;};
+  c.onmouseup=()=>{if(drag){vx=(bx-mx)*0.12;vy=(by-my)*0.12;drag=false;st++;document.getElementById('st').textContent=st;}};
+  function loop(){bx+=vx;by+=vy;vx*=0.96;vy*=0.96;if(bx<10||bx>430)vx*=-1;if(by<10||by>230)vy*=-1;
+  if(Math.hypot(bx-380,by-120)<14){alert(`カップイン！ ${st}打`);bx=60;by=120;vx=0;vy=0;st=0;document.getElementById('st').textContent=0;}
+  x.clearRect(0,0,440,240);x.fillStyle='#111';x.beginPath();x.arc(380,120,12,0,7);x.fill();
+  if(drag){x.beginPath();x.moveTo(bx,by);x.lineTo(mx,my);x.stroke();}
+  x.fillStyle='#ef4444';x.beginPath();x.arc(bx,by,8,0,7);x.fill();requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

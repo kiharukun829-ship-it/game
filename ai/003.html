@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>003 - スネークゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>003. スネークゲーム</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><canvas id="c" width="360" height="360"></canvas><button onclick="init()">スタート</button><p>矢印キー / WASD</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let sn,d,nd,fd,sc,tm,dead;
+  function init(){sn=[{x:9,y:9},{x:8,y:9}];d={x:1,y:0};nd={x:1,y:0};sc=0;dead=false;pFd();document.getElementById('sc').textContent=0;clearInterval(tm);tm=setInterval(tick,110);}
+  function pFd(){fd={x:Math.floor(Math.random()*18),y:Math.floor(Math.random()*18)};}
+  document.onkeydown=e=>{const k=e.key.toLowerCase();if((k==='arrowup'||k==='w')&&d.y===0)nd={x:0,y:-1};if((k==='arrowdown'||k==='s')&&d.y===0)nd={x:0,y:1};if((k==='arrowleft'||k==='a')&&d.x===0)nd={x:-1,y:0};if((k==='arrowright'||k==='d')&&d.x===0)nd={x:1,y:0};};
+  function tick(){if(dead)return;d=nd;const h={x:sn[0].x+d.x,y:sn[0].y+d.y};if(h.x<0||h.x>=18||h.y<0||h.y>=18||sn.some(s=>s.x===h.x&&s.y===h.y)){dead=true;draw();return;}
+  sn.unshift(h);if(h.x===fd.x&&h.y===fd.y){sc+=10;document.getElementById('sc').textContent=sc;pFd();}else sn.pop();draw();}
+  function draw(){x.clearRect(0,0,360,360);x.fillStyle='#ef4444';x.fillRect(fd.x*20+2,fd.y*20+2,16,16);sn.forEach((s,i)=>{x.fillStyle=i?'#22c55e':'#111';x.fillRect(s.x*20+1,s.y*20+1,18,18);});if(dead){x.fillStyle='#000';x.font='bold 24px sans-serif';x.textAlign='center';x.fillText('GAME OVER',180,180);}}
+  init();</script>
+</body>
+</html>

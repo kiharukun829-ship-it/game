@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>058 - 素数判定ゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>058. 素数判定ゲーム</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><div id="num" style="font-size:40px;margin:15px"></div><button onclick="ans(true)">素数である</button><button onclick="ans(false)">素数ではない</button>
+  <script>let n,sc=0;function isP(x){if(x<2)return false;for(let i=2;i*i<=x;i++)if(x%i===0)return false;return true;}
+  function next(){n=Math.floor(Math.random()*98)+2;num.textContent=n;}
+  function ans(v){if(v===isP(n))sc++;else{alert(`${n} は素数${isP(n)?'です':'ではありません'}`);sc=0;}document.getElementById('sc').textContent=sc;next();}
+  next();</script>
+</body>
+</html>

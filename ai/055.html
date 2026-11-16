@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>055 - 間違い漢字探し</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(6,42px);gap:4px;justify-content:center}.c{width:42px;height:42px;border:1px solid #333;font-size:24px;display:flex;align-items:center;justify-content:center;cursor:pointer}</style>
+</head>
+<body>
+  <h1>055. 間違い漢字探し</h1>
+  <div class="info">1つだけ違う漢字を探せ！ スコア: <span id="sc">0</span></div><div class="g" id="g"></div>
+  <script>const pairs=[['犬','太'],['鳥','烏'],['日','曰'],['土','士'],['未','末'],['人','入'],['大','犬'],['白','自']];let sc=0;
+  function next(){const p=pairs[Math.floor(Math.random()*pairs.length)],idx=Math.floor(Math.random()*36);const g=document.getElementById('g');g.innerHTML='';
+  for(let i=0;i<36;i++){const d=document.createElement('div');d.className='c';d.textContent=i===idx?p[1]:p[0];d.onclick=()=>{if(i===idx){sc++;document.getElementById('sc').textContent=sc;next();}};g.appendChild(d);}}
+  next();</script>
+</body>
+</html>

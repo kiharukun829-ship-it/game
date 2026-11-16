@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>023 - 10秒ストップウォッチ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>023. 10秒ストップウォッチ</h1>
+  <div class="info">目を閉じて 10.00秒 で止めよう</div><div id="disp" style="font-size:36px;margin:20px">0.00</div><button id="btn" onclick="tog()">スタート</button>
+  <script>let run=false,t0,iv;function tog(){if(!run){run=true;t0=performance.now();btn.textContent='ストップ';iv=setInterval(()=>{const s=(performance.now()-t0)/1000;disp.textContent=s>3?'??.??':s.toFixed(2);},30);}
+  else{run=false;clearInterval(iv);const s=(performance.now()-t0)/1000;disp.textContent=`${s.toFixed(2)} 秒 (誤差 ${(s-10).toFixed(2)})`;btn.textContent='もう一度';}}</script>
+</body>
+</html>

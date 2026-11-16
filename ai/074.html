@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>074 - 株式トレードゲーム（30日間）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>074. 株式トレードゲーム（30日間）</h1>
+  <div class="info"><span id="day">1</span>/30日目 ／ 現金: <span id="cash">1000</span>円 ／ 保有株: <span id="st">0</span>株</div><div style="font-size:24px;margin:10px">現在株価: <span id="pr">100</span>円</div><button onclick="buy()">1株買う</button><button onclick="sell()">1株売る</button><button onclick="next()">翌日へ</button>
+  <script>let day=1,cash=1000,st=0,pr=100;
+  function upd(){document.getElementById('day').textContent=day;document.getElementById('cash').textContent=cash;document.getElementById('st').textContent=st;document.getElementById('pr').textContent=pr;}
+  function buy(){if(day<30&&cash>=pr){cash-=pr;st++;upd();}}
+  function sell(){if(day<30&&st>0){cash+=pr;st--;upd();}}
+  function next(){if(day>=30)return;day++;pr=Math.max(20,Math.round(pr*(0.8+Math.random()*0.45)));upd();if(day===30)alert(`最終総資産: ${cash+st*pr}円`);}</script>
+</body>
+</html>

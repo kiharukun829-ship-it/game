@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>057 - 数当てハイ＆ロー（1〜100）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>057. 数当てハイ＆ロー（1〜100）</h1>
+  <div class="info" id="st">1〜100の秘密の数を当てよう</div><input id="in" type="number" style="font-size:18px;width:80px"><button onclick="chk()">予想</button><button onclick="init()">リセット</button>
+  <script>let ans,cnt;function init(){ans=Math.floor(Math.random()*100)+1;cnt=0;st.textContent='1〜100の秘密の数を当てよう';}
+  function chk(){const v=Number(document.getElementById('in').value);cnt++;if(v===ans)st.textContent=`🎉 ${cnt}回目で正解！`;else st.textContent=v<ans?'もっと大きい！':'もっと小さい！';}
+  init();</script>
+</body>
+</html>

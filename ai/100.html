@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 - 100本目記念・花火打ち上げ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>100. 100本目記念・花火打ち上げ</h1>
+  <div class="info">空をクリックして花火を打ち上げよう！（100ゲーム達成記念）</div><canvas id="c" width="440" height="340"></canvas>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let pt=[];
+  c.onmousedown=e=>{const r=c.getBoundingClientRect(),bx=e.clientX-r.left,by=e.clientY-r.top,col=`hsl(${Math.random()*360},80%,55%)`;
+  for(let i=0;i<36;i++){const a=i*Math.PI*2/36,sp=2+Math.random()*3;pt.push({x:bx,y:by,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:50,col});}};
+  function loop(){x.fillStyle='rgba(255,255,255,0.25)';x.fillRect(0,0,440,340);
+  for(let i=pt.length-1;i>=0;i--){const p=pt[i];p.x+=p.vx;p.y+=p.vy;p.vy+=0.05;p.life--;x.fillStyle=p.col;x.fillRect(p.x,p.y,4,4);if(p.life<=0)pt.splice(i,1);}requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

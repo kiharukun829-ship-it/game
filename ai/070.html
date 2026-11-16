@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>070 - 音感当てクイズ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>070. 音感当てクイズ</h1>
+  <div class="info">再生された音階を当てよう スコア: <span id="sc">0</span></div><button onclick="play()">🔊 音を聴く</button><div id="opts" style="margin-top:10px"></div>
+  <script>const notes=[['ド',261.6],['レ',293.7],['ミ',329.6],['ファ',349.2],['ソ',392.0],['ラ',440.0],['シ',493.9]];
+  const ac=new (window.AudioContext||window.webkitAudioContext)();let cur=notes[0],sc=0;
+  function play(){const o=ac.createOscillator();o.frequency.value=cur[1];o.connect(ac.destination);o.start();o.stop(ac.currentTime+0.35);}
+  notes.forEach(n=>{const b=document.createElement('button');b.textContent=n[0];b.onclick=()=>{if(n[0]===cur[0]){sc++;cur=notes[Math.floor(Math.random()*7)];play();}else alert('正解は '+cur[0]);document.getElementById('sc').textContent=sc;};opts.appendChild(b);});</script>
+</body>
+</html>

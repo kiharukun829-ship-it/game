@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>075 - ペット育成ミニ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>075. ペット育成ミニ</h1>
+  <div class="info">満腹: <span id="hg">50</span> ／ 機嫌: <span id="hp">50</span></div><div id="pet" style="font-size:48px;margin:15px">🐶</div><button onclick="feed()">🍖 ごはん</button><button onclick="play()">🎾 遊ぶ</button>
+  <script>let hg=50,hp=50;function upd(){document.getElementById('hg').textContent=hg;document.getElementById('hp').textContent=hp;pet.textContent=(hg<20||hp<20)?'😢':'🐶';}
+  function feed(){hg=Math.min(100,hg+20);upd();}function play(){hp=Math.min(100,hp+20);hg=Math.max(0,hg-5);upd();}
+  setInterval(()=>{hg=Math.max(0,hg-2);hp=Math.max(0,hp-2);upd();},1500);</script>
+</body>
+</html>

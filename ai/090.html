@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>090 - ボンバー回避（3レーン）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>090. ボンバー回避（3レーン）</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><canvas id="c" width="240" height="360"></canvas><p>左右キーでレーン移動</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let lane=1,obs=[],sc=0,ov=false,fr=0;
+  document.onkeydown=e=>{if(ov){lane=1;obs=[];sc=0;ov=false;}if(e.key==='ArrowLeft')lane=Math.max(0,lane-1);if(e.key==='ArrowRight')lane=Math.min(2,lane+1);};
+  function loop(){if(!ov){fr++;sc++;document.getElementById('sc').textContent=sc;if(fr%32===0)obs.push({l:Math.floor(Math.random()*3),y:0});
+  obs.forEach(o=>{o.y+=5;if(o.l===lane&&o.y>290&&o.y<330)ov=true;});obs=obs.filter(o=>o.y<380);}
+  x.clearRect(0,0,240,360);x.fillStyle='#2563eb';x.fillRect(lane*80+25,300,30,30);
+  x.fillStyle='#ef4444';obs.forEach(o=>x.fillRect(o.l*80+25,o.y,30,30));
+  if(ov){x.fillStyle='#000';x.font='bold 20px sans-serif';x.textAlign='center';x.fillText('GAME OVER',120,180);}requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

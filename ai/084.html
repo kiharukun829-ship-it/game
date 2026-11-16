@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>084 - タワー積み上げ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>084. タワー積み上げ</h1>
+  <div class="info">段数: <span id="sc">0</span></div><canvas id="c" width="320" height="400"></canvas><button onclick="drop()">ブロックを置く</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let stack=[{x:80,w:160}],cur={x:0,w:160,dir:3},ov=false;
+  function drop(){if(ov){stack=[{x:80,w:160}];cur={x:0,w:160,dir:3};ov=false;document.getElementById('sc').textContent=0;return;}
+  const top=stack[stack.length-1],l=Math.max(top.x,cur.x),r=Math.min(top.x+top.w,cur.x+cur.w),nw=r-l;
+  if(nw<=0){ov=true;return;}stack.push({x:l,w:nw});cur={x:0,w:nw,dir:3+stack.length*0.2};document.getElementById('sc').textContent=stack.length-1;}
+  function loop(){if(!ov){cur.x+=cur.dir;if(cur.x<0||cur.x+cur.w>320)cur.dir*=-1;}
+  x.clearRect(0,0,320,400);x.fillStyle='#3b82f6';stack.slice(-15).forEach((b,i)=>x.fillRect(b.x,380-i*20,b.w,18));
+  if(!ov){x.fillStyle='#ef4444';x.fillRect(cur.x,380-Math.min(15,stack.length)*20,cur.w,18);}requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

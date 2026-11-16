@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>080 - 金庫破りダイヤル</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>080. 金庫破りダイヤル</h1>
+  <div class="info" id="st">3桁の暗証番号を音（ヒント）で当てよう</div><input id="d1" type="number" min="0" max="9" value="0" style="width:45px"><input id="d2" type="number" min="0" max="9" value="0" style="width:45px"><input id="d3" type="number" min="0" max="9" value="0" style="width:45px"><button onclick="chk()">開錠</button>
+  <script>const ans=[Math.floor(Math.random()*10),Math.floor(Math.random()*10),Math.floor(Math.random()*10)];
+  function chk(){const g=[Number(d1.value),Number(d2.value),Number(d3.value)];let ok=0;for(let i=0;i<3;i++)if(g[i]===ans[i])ok++;
+  st.textContent=ok===3?'🔓 金庫が開いた！クリア！':`カチッ... ${ok}個のダイヤルが一致しています`;}</script>
+</body>
+</html>

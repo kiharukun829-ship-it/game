@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>029 - サイモン記憶ゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(2,100px);gap:10px;justify-content:center}.b{width:100px;height:100px;border:1px solid #333;cursor:pointer;opacity:0.6}</style>
+</head>
+<body>
+  <h1>029. サイモン記憶ゲーム</h1>
+  <div class="info" id="st">スタートを押してください</div><div class="g" id="g"></div><button onclick="start()">スタート</button>
+  <script>const cols=['#ef4444','#3b82f6','#22c55e','#eab308'];let seq=[],usr=[],lock=true;const g=document.getElementById('g');
+  cols.forEach((col,i)=>{const d=document.createElement('div');d.className='b';d.style.background=col;d.onclick=()=>press(i);g.appendChild(d);});
+  function flash(i){g.children[i].style.opacity='1';setTimeout(()=>g.children[i].style.opacity='0.6',300);}
+  function start(){seq=[];nextRound();}
+  function nextRound(){usr=[];lock=true;seq.push(Math.floor(Math.random()*4));st.textContent='レベル '+seq.length;
+  seq.forEach((v,idx)=>setTimeout(()=>flash(v),(idx+1)*550));setTimeout(()=>lock=false,(seq.length+1)*550);}
+  function press(i){if(lock)return;flash(i);usr.push(i);const idx=usr.length-1;if(usr[idx]!==seq[idx]){st.textContent='ミス！終了';lock=true;return;}if(usr.length===seq.length)setTimeout(nextRound,500);}</script>
+</body>
+</html>

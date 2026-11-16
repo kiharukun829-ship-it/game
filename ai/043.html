@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>043 - 宝探しグリッド</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(5,50px);gap:4px;justify-content:center}.c{width:50px;height:50px;border:1px solid #333;background:#eee;display:flex;align-items:center;justify-content:center;cursor:pointer}</style>
+</head>
+<body>
+  <h1>043. 宝探しグリッド</h1>
+  <div class="info" id="st">残り6回以内に💎を見つけろ！</div><div class="g" id="g"></div><button onclick="init()">リセット</button>
+  <script>let tr,lf,ov;function init(){tr=Math.floor(Math.random()*25);lf=6;ov=false;st.textContent='残り6回以内に💎を見つけろ！';const g=document.getElementById('g');g.innerHTML='';
+  for(let i=0;i<25;i++){const d=document.createElement('div');d.className='c';d.onclick=()=>{if(ov||d.textContent)return;
+  if(i===tr){d.textContent='💎';st.textContent='🎉 お宝発見！';ov=true;}else{lf--;const dist=Math.abs((i>>2)-(tr>>2))+Math.abs((i%5)-(tr%5));d.textContent=dist;if(lf<=0){st.textContent='ゲームオーバー';ov=true;}else st.textContent=`残り${lf}回（距離ヒント表示）`;}};g.appendChild(d);}}
+  init();</script>
+</body>
+</html>

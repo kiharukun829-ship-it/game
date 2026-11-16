@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>094 - 迷子ネコの誘導</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>094. 迷子ネコの誘導</h1>
+  <div class="info">魚（🐟）をクリックしてネコを誘導しよう！</div><canvas id="c" width="360" height="280"></canvas>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let cx=180,cy=140,fx=180,fy=140,sc=0;
+  c.onmousedown=e=>{const r=c.getBoundingClientRect();fx=e.clientX-r.left;fy=e.clientY-r.top;};
+  function loop(){cx+=(fx-cx)*0.05;cy+=(fy-cy)*0.05;x.clearRect(0,0,360,280);x.font='24px sans-serif';x.fillText('🐟',fx-12,fy+8);x.fillText('🐱',cx-12,cy+8);requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>037 - ブラックジャック（21）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>037. ブラックジャック（21）</h1>
+  <div class="info">あなた: <span id="ps">0</span> ／ ディーラー: <span id="ds">?</span></div><div id="msg" style="margin:10px;font-weight:bold"></div><button onclick="hit()">ヒット（引く）</button><button onclick="stand()">スタンド（勝負）</button><button onclick="init()">新規ゲーム</button>
+  <script>let p,d,ov;function drawC(){return Math.min(10,Math.floor(Math.random()*13)+1);}
+  function init(){p=[drawC(),drawC()];d=[drawC(),drawC()];ov=false;msg.textContent='';upd();}
+  function sum(a){return a.reduce((x,y)=>x+y,0);}
+  function upd(){document.getElementById('ps').textContent=`${sum(p)} (${p.join(',')})`;document.getElementById('ds').textContent=ov?`${sum(d)} (${d.join(',')})`:`${d[0]}, ?`;}
+  function hit(){if(ov)return;p.push(drawC());if(sum(p)>21){ov=true;msg.textContent='バースト！負け';}upd();}
+  function stand(){if(ov)return;ov=true;while(sum(d)<17)d.push(drawC());const sp=sum(p),sd=sum(d);
+  msg.textContent=(sd>21||sp>sd)?'あなたの勝ち！':sp===sd?'引き分け':'ディーラーの勝ち';upd();}
+  init();</script>
+</body>
+</html>

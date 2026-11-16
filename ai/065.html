@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>065 - 都道府県・県庁所在地クイズ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>065. 都道府県・県庁所在地クイズ</h1>
+  <div class="info">県庁所在地を選べ！ スコア: <span id="sc">0</span></div><div id="q" style="font-size:26px;margin:15px"></div><div id="opts"></div>
+  <script>const data=[['北海道','札幌市'],['宮城県','仙台市'],['愛知県','名古屋市'],['石川県','金沢市'],['兵庫県','神戸市'],['香川県','高松市'],['沖縄県','那覇市'],['岩手県','盛岡市']];let sc=0;
+  function next(){const d=data[Math.floor(Math.random()*data.length)];q.textContent=d[0];opts.innerHTML='';
+  const ch=[d[1],...data.filter(x=>x[0]!==d[0]).map(x=>x[1]).sort(()=>Math.random()-0.5).slice(0,3)].sort(()=>Math.random()-0.5);
+  ch.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.onclick=()=>{if(c===d[1])sc++;else alert('正解は '+d[1]);document.getElementById('sc').textContent=sc;next();};opts.appendChild(b);});}
+  next();</script>
+</body>
+</html>

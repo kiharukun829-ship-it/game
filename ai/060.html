@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>060 - 時計の針読みトレーニング</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>060. 時計の針読みトレーニング</h1>
+  <div class="info">何時何分？ スコア: <span id="sc">0</span></div><canvas id="c" width="200" height="200"></canvas><br><input id="h" type="number" placeholder="時" style="width:50px"> : <input id="m" type="number" placeholder="分" style="width:50px"><button onclick="chk()">回答</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let hh,mm,sc=0;
+  function next(){hh=Math.floor(Math.random()*12)+1;mm=Math.floor(Math.random()*12)*5;x.clearRect(0,0,200,200);
+  x.beginPath();x.arc(100,100,90,0,7);x.stroke();
+  const ha=((hh%12)+mm/60)*Math.PI/6-Math.PI/2,ma=mm*Math.PI/30-Math.PI/2;
+  x.beginPath();x.moveTo(100,100);x.lineTo(100+Math.cos(ha)*50,100+Math.sin(ha)*50);x.lineWidth=4;x.stroke();
+  x.beginPath();x.moveTo(100,100);x.lineTo(100+Math.cos(ma)*75,100+Math.sin(ma)*75);x.lineWidth=2;x.stroke();}
+  function chk(){if(Number(h.value)===hh&&Number(m.value)===mm){sc++;document.getElementById('sc').textContent=sc;next();}else alert(`正解は ${hh}:${String(mm).padStart(2,'0')}`);}
+  next();</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>087 - 色混ぜパズル（RGB）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>087. 色混ぜパズル（RGB）</h1>
+  <div class="info">見本と同じ色を作ろう！</div><div style="display:flex;justify-content:center;gap:20px;margin:15px"><div>見本<div id="tg" style="width:80px;height:80px;border:1px solid #333"></div></div><div>あなた<div id="my" style="width:80px;height:80px;border:1px solid #333"></div></div></div>R:<input type="range" id="r" min="0" max="255" oninput="upd()"><br>G:<input type="range" id="g" min="0" max="255" oninput="upd()"><br>B:<input type="range" id="b" min="0" max="255" oninput="upd()"><br><button onclick="chk()">判定</button>
+  <script>let tr,tg2,tb;function init(){tr=Math.floor(Math.random()*256);tg2=Math.floor(Math.random()*256);tb=Math.floor(Math.random()*256);tg.style.background=`rgb(${tr},${tg2},${tb})`;upd();}
+  function upd(){my.style.background=`rgb(${r.value},${g.value},${b.value})`;}
+  function chk(){const diff=Math.abs(r.value-tr)+Math.abs(g.value-tg2)+Math.abs(b.value-tb);alert(`誤差: ${diff}（${diff<60?'合格！クリア！':'もう少し！'}）`);if(diff<60)init();}
+  init();</script>
+</body>
+</html>

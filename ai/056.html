@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>056 - アナグラム並べ替え</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>056. アナグラム並べ替え</h1>
+  <div class="info">並べ替えて英単語を作ろう！</div><div id="q" style="font-size:32px;letter-spacing:5px;margin:15px"></div><input id="in" style="font-size:20px;text-align:center"><button onclick="chk()">判定</button><button onclick="next()">パス</button>
+  <script>const ws=['APPLE','HOUSE','MUSIC','WATER','EARTH','TRAIN','BRAIN','SMILE','CLOUD','LIGHT'];let ans='';
+  function next(){ans=ws[Math.floor(Math.random()*ws.length)];q.textContent=ans.split('').sort(()=>Math.random()-0.5).join('');document.getElementById('in').value='';}
+  function chk(){if(document.getElementById('in').value.trim().toUpperCase()===ans){alert('正解！');next();}else alert('違うよ！');}
+  next();</script>
+</body>
+</html>

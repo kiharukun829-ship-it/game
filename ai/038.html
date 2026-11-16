@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>038 - ハイ＆ロー（トランプ）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>038. ハイ＆ロー（トランプ）</h1>
+  <div class="info">連勝数: <span id="st">0</span></div><div id="card" style="font-size:48px;margin:15px">7</div><button onclick="guess(1)">HIGH（大きい）</button><button onclick="guess(-1)">LOW（小さい）</button>
+  <script>let cur=7,st=0;function guess(dir){const nxt=Math.floor(Math.random()*13)+1;
+  if(nxt===cur){alert(`同じ数字(${nxt})！引き分け`);}else if((nxt>cur&&dir===1)||(nxt<cur&&dir===-1)){st++;}else{alert(`ハズレ！次の数字は ${nxt} でした`);st=0;}
+  cur=nxt;card.textContent=cur;document.getElementById('st').textContent=st;}</script>
+</body>
+</html>

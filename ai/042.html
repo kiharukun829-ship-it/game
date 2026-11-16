@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>042 - 黒ひげ危機一発風</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(4,55px);gap:6px;justify-content:center}.h{width:55px;height:40px;border:1px solid #333;background:#d97706;cursor:pointer}</style>
+</head>
+<body>
+  <h1>042. 黒ひげ危機一発風</h1>
+  <div class="info" id="st">ハズレの穴を避けて刺そう！</div><div class="g" id="g"></div><button onclick="init()">リセット</button>
+  <script>let bad,ov;function init(){bad=Math.floor(Math.random()*12);ov=false;st.textContent='ハズレの穴を避けて刺そう！';const g=document.getElementById('g');g.innerHTML='';
+  for(let i=0;i<12;i++){const d=document.createElement('div');d.className='h';d.onclick=()=>{if(ov||d.dataset.used)return;d.dataset.used=1;
+  if(i===bad){d.style.background='#ef4444';st.textContent='💥 飛び出した！負け！';ov=true;}else d.style.background='#eee';};g.appendChild(d);}}
+  init();</script>
+</body>
+</html>

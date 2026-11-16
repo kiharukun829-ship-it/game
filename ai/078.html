@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>078 - 釣りゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>078. 釣りゲーム</h1>
+  <div class="info">釣果: <span id="sc">0</span>匹</div><div id="st" style="font-size:20px;margin:15px">浮きを投げよう</div><button onclick="cast()">🎣 投げる / 引く</button>
+  <script>let state=0,sc=0,tm;function cast(){if(state===0){state=1;st.textContent='待機中...（！が出たら引け）';tm=setTimeout(()=>{state=2;st.textContent='❗ ヒット！今すぐ引け！';setTimeout(()=>{if(state===2){state=0;st.textContent='逃げられた...';}},900);},1200+Math.random()*2500);}
+  else if(state===1){clearTimeout(tm);state=0;st.textContent='早すぎた！';}
+  else{state=0;sc++;document.getElementById('sc').textContent=sc;st.textContent='🐟 大物を釣り上げた！';}}</script>
+</body>
+</html>

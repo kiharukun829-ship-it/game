@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>015 - ハノイの塔</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.towers{display:flex;justify-content:center;gap:30px;margin:20px 0}.t{width:120px;height:160px;border-bottom:4px solid #333;display:flex;flex-direction:column-reverse;align-items:center;cursor:pointer;background:#fafafa}.d{height:22px;background:#3b82f6;border:1px solid #1d4ed8;margin-bottom:2px}</style>
+</head>
+<body>
+  <h1>015. ハノイの塔</h1>
+  <div class="info">移動回数: <span id="mv">0</span> <span id="msg"></span></div><div class="towers" id="tw"></div><button onclick="init()">リセット</button><p>棒をクリックして選択→移動先をクリック</p>
+  <script>let t,sel,mv;function init(){t=[[4,3,2,1],[],[]];sel=-1;mv=0;draw();}
+  function clickT(i){if(sel<0){if(t[i].length)sel=i;}else{if(sel!==i){const d=t[sel][t[sel].length-1];if(!t[i].length||t[i][t[i].length-1]>d){t[i].push(t[sel].pop());mv++;}}sel=-1;}draw();}
+  function draw(){document.getElementById('mv').textContent=mv;msg.textContent=t[2].length===4?'クリア！':'';const tw=document.getElementById('tw');tw.innerHTML='';
+  t.forEach((arr,i)=>{const d=document.createElement('div');d.className='t';if(sel===i)d.style.background='#fef08a';d.onclick=()=>clickT(i);
+  arr.forEach(sz=>{const dk=document.createElement('div');dk.className='d';dk.style.width=(sz*24)+'px';d.appendChild(dk);});tw.appendChild(d);});}
+  init();</script>
+</body>
+</html>

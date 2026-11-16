@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>039 - スロットマシン</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>039. スロットマシン</h1>
+  <div class="info">コイン: <span id="coin">100</span></div><div id="reels" style="font-size:44px;margin:15px">🍒 🍋 🔔</div><button onclick="spin()">スピン（10枚）</button>
+  <script>let coin=100;const sy=['🍒','🍋','🔔','💎','7️⃣'];
+  function spin(){if(coin<10)return;coin-=10;const r=[0,0,0].map(()=>sy[Math.floor(Math.random()*sy.length)]);
+  reels.textContent=r.join(' ');if(r[0]===r[1]&&r[1]===r[2])coin+=(r[0]==='7️⃣'?200:80);else if(r[0]===r[1]||r[1]===r[2])coin+=15;
+  document.getElementById('coin').textContent=coin;}</script>
+</body>
+</html>

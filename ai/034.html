@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>034 - 風船割り</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>034. 風船割り</h1>
+  <div class="info">割った数: <span id="sc">0</span></div><canvas id="c" width="360" height="400"></canvas>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let bl=[],sc=0,fr=0;
+  c.onmousedown=e=>{const r=c.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  for(let i=bl.length-1;i>=0;i--)if(Math.hypot(mx-bl[i].x,my-bl[i].y)<22){bl.splice(i,1);sc++;document.getElementById('sc').textContent=sc;}};
+  function loop(){fr++;if(fr%25===0)bl.push({x:30+Math.random()*300,y:420,vy:1.5+Math.random()*2});
+  x.clearRect(0,0,360,400);bl.forEach(b=>{b.y-=b.vy;x.fillStyle='#3b82f6';x.beginPath();x.arc(b.x,b.y,20,0,7);x.fill();});bl=bl.filter(b=>b.y>-30);requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

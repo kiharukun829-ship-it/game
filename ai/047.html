@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>047 - ポーカー風ハンド判定</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>047. ポーカー風ハンド判定</h1>
+  <div id="cards" style="font-size:32px;margin:15px">? ? ? ? ?</div><div id="rank" style="font-size:20px;margin-bottom:15px"></div><button onclick="deal()">5枚配る</button>
+  <script>function deal(){const c=Array.from({length:5},()=>Math.floor(Math.random()*13)+1).sort((a,b)=>a-b);cards.textContent=c.join(' ');
+  const cnt={};c.forEach(v=>cnt[v]=(cnt[v]||0)+1);const vals=Object.values(cnt).sort((a,b)=>b-a);
+  rank.textContent=vals[0]===4?'フォーカード！':vals[0]===3&&vals[1]===2?'フルハウス！':vals[0]===3?'スリーカード':vals[0]===2&&vals[1]===2?'ツーペア':vals[0]===2?'ワンペア':'ハイカード';}</script>
+</body>
+</html>

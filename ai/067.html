@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>067 - ドット絵お絵かき</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(12,24px);gap:1px;justify-content:center}.c{width:24px;height:24px;border:1px solid #ccc;cursor:pointer}</style>
+</head>
+<body>
+  <h1>067. ドット絵お絵かき</h1>
+  <input type="color" id="col" value="#2563eb"> <button onclick="clearG()">全消去</button><div class="g" id="g" style="margin-top:10px"></div>
+  <script>const g=document.getElementById('g');let down=false;document.onmousedown=()=>down=true;document.onmouseup=()=>down=false;
+  for(let i=0;i<144;i++){const d=document.createElement('div');d.className='c';d.onmousedown=()=>d.style.background=col.value;d.onmouseover=()=>{if(down)d.style.background=col.value;};g.appendChild(d);}
+  function clearG(){[...g.children].forEach(d=>d.style.background='#fff');}</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>019 - 倉庫番（ミニ）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>019. 倉庫番（ミニ）</h1>
+  <div class="info" id="st">荷物を★に運ぼう</div><canvas id="c" width="280" height="280"></canvas><button onclick="init()">リセット</button><p>矢印キーで移動</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let map,px,py;
+  function init(){map=['#######','#  .  #','# $ $ #','#  @  #','#  .  #','#######'].map(r=>r.split(''));px=3;py=3;st.textContent='荷物を★に運ぼう';draw();}
+  document.onkeydown=e=>{let dx=0,dy=0;if(e.key==='ArrowUp')dy=-1;if(e.key==='ArrowDown')dy=1;if(e.key==='ArrowLeft')dx=-1;if(e.key==='ArrowRight')dx=1;if(!dx&&!dy)return;
+  const nx=px+dx,ny=py+dy,t=map[ny][nx];
+  if(t===' '||t==='.'){px=nx;py=ny;}else if(t==='$'||t==='*'){const bx=nx+dx,by=ny+dy,bt=map[by][bx];if(bt===' '||bt==='.'){map[by][bx]=bt==='.'?'*':'$';map[ny][nx]=t==='*'?' .'.trim():' ';px=nx;py=ny;}}
+  draw();if(!map.flat().includes('$'))st.textContent='🎉 クリア！';};
+  function draw(){x.clearRect(0,0,280,280);for(let r=0;r<6;r++)for(let col=0;col<7;col++){const v=map[r][col];
+  if(v==='#'){x.fillStyle='#444';x.fillRect(col*40,r*40,40,40);}
+  if(v==='.'||v==='*'){x.fillStyle='#facc15';x.fillText('★',col*40+12,r*40+26);}
+  if(v==='$'||v==='*'){x.fillStyle='#d97706';x.fillRect(col*40+6,r*40+6,28,28);}}
+  x.fillStyle='#2563eb';x.beginPath();x.arc(px*40+20,py*40+20,13,0,7);x.fill();}
+  init();</script>
+</body>
+</html>

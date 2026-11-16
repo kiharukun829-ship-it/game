@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>077 - レモネードスタンド経営</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>077. レモネードスタンド経営</h1>
+  <div class="info"><span id="d">1</span>日目 ／ 資金: <span id="m">500</span>円</div><div>天気予報: <span id="w">晴れ ☀️</span></div>価格設定: <input id="p" type="number" value="100" style="width:60px">円 <button onclick="openShop()">開店する</button><div id="log" style="margin-top:10px"></div>
+  <script>let d=1,m=500,w=0;const ws=['晴れ ☀️','くもり ☁️','雨 ☔'];
+  function openShop(){if(d>10)return;const pr=Number(document.getElementById('p').value);const demand=w===0?30:w===1?20:10;
+  const sold=Math.max(0,Math.min(demand,Math.floor(demand*(150/Math.max(50,pr)))));const profit=sold*(pr-40);m+=profit;
+  log.textContent=`${d}日目: ${sold}杯売れて 利益 ${profit}円！`;d++;w=Math.floor(Math.random()*3);document.getElementById('d').textContent=d;document.getElementById('m').textContent=m;document.getElementById('w').textContent=ws[w];}</script>
+</body>
+</html>

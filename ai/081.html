@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>081 - 重力反転ランナー</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>081. 重力反転ランナー</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><canvas id="c" width="460" height="200"></canvas><p>クリックで上下の重力を反転</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let y=160,g=1,ob=[],sc=0,ov=false,fr=0;
+  c.onmousedown=()=>{if(ov){y=160;g=1;ob=[];sc=0;ov=false;}else g*=-1;};
+  function loop(){if(!ov){fr++;sc++;document.getElementById('sc').textContent=sc;y=Math.max(10,Math.min(170,y+g*6));
+  if(fr%45===0)ob.push({x:460,top:Math.random()<0.5});
+  ob.forEach(o=>{o.x-=5;if(o.x<55&&o.x>20&&((o.top&&y<40)||(!o.top&&y>140)))ov=true;});ob=ob.filter(o=>o.x>-20);}
+  x.clearRect(0,0,460,200);x.fillStyle='#2563eb';x.fillRect(30,y,20,20);
+  x.fillStyle='#ef4444';ob.forEach(o=>x.fillRect(o.x,o.top?0:160,20,40));
+  if(ov){x.fillStyle='#000';x.font='bold 22px sans-serif';x.textAlign='center';x.fillText('GAME OVER',230,100);}requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

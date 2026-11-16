@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>041 - 丁半サイコロ賭博</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>041. 丁半サイコロ賭博</h1>
+  <div class="info">所持金: <span id="m">100</span>両</div><div id="res" style="font-size:22px;margin:15px">サイコロ2個の合計は？</div><button onclick="bet(0)">丁（偶数）</button><button onclick="bet(1)">半（奇数）</button>
+  <script>let m=100;function bet(g){if(m<10)return;const d1=Math.floor(Math.random()*6)+1,d2=Math.floor(Math.random()*6)+1,odd=(d1+d2)%2;
+  if(odd===g){m+=10;res.textContent=`[${d1}, ${d2}] ${odd?'半':'丁'}！勝ち +10`;}else{m-=10;res.textContent=`[${d1}, ${d2}] ${odd?'半':'丁'}！負け -10`;}document.getElementById('m').textContent=m;}</script>
+</body>
+</html>

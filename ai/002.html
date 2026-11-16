@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>002 - ブロック崩し</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>002. ブロック崩し</h1>
+  <div class="info">スコア: <span id="sc">0</span> / ライフ: <span id="lf">3</span></div><canvas id="c" width="440" height="440"></canvas><button onclick="init()">リセット</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let sc,lf,ball,pad,br,over;
+  function init(){sc=0;lf=3;over=false;pad={w:80,h:10,x:180,y:415};rBall();br=[];for(let r=0;r<5;r++)for(let col=0;col<8;col++)br.push({x:16+col*52,y:35+r*24,w:46,h:18,a:true});ui();}
+  function rBall(){ball={x:220,y:390,r:6,dx:3.5,dy:-3.5};}
+  function ui(){document.getElementById('sc').textContent=sc;document.getElementById('lf').textContent=lf;}
+  c.onmousemove=e=>{const r=c.getBoundingClientRect();pad.x=Math.max(0,Math.min(360,e.clientX-r.left-40));};
+  function loop(){if(!over){ball.x+=ball.dx;ball.y+=ball.dy;if(ball.x<6||ball.x>434)ball.dx*=-1;if(ball.y<6)ball.dy*=-1;
+  if(ball.y+6>pad.y&&ball.x>pad.x&&ball.x<pad.x+pad.w&&ball.dy>0)ball.dy*=-1;
+  if(ball.y>440){lf--;ui();if(lf<=0)over=true;else rBall();}
+  let rem=0;br.forEach(b=>{if(!b.a)return;rem++;if(ball.x>b.x&&ball.x<b.x+b.w&&ball.y>b.y&&ball.y<b.y+b.h){b.a=false;ball.dy*=-1;sc+=100;ui();}});
+  if(rem===0)over=true;}
+  x.clearRect(0,0,440,440);x.fillStyle='#3b82f6';br.forEach(b=>{if(b.a)x.fillRect(b.x,b.y,b.w,b.h);});
+  x.fillStyle='#222';x.fillRect(pad.x,pad.y,pad.w,pad.h);x.beginPath();x.arc(ball.x,ball.y,6,0,7);x.fillStyle='#ef4444';x.fill();
+  if(over){x.fillStyle='#000';x.font='bold 24px sans-serif';x.textAlign='center';x.fillText('END',220,220);}requestAnimationFrame(loop);}
+  init();loop();</script>
+</body>
+</html>

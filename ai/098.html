@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>098 - ミニスロット数字揃え</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>098. ミニスロット数字揃え</h1>
+  <div style="font-size:40px;margin:15px"><span id="s0">1</span> <span id="s1">2</span> <span id="s2">3</span></div><button onclick="st(0)">止1</button><button onclick="st(1)">止2</button><button onclick="st(2)">止3</button><button onclick="run=[true,true,true]">再始動</button>
+  <script>let v=[1,2,3],run=[true,true,true];setInterval(()=>{for(let i=0;i<3;i++)if(run[i]){v[i]=v[i]%9+1;document.getElementById('s'+i).textContent=v[i];}},100);
+  function st(i){run[i]=false;if(!run.includes(true)&&v[0]===v[1]&&v[1]===v[2])alert('🎉 揃った！');}</script>
+</body>
+</html>

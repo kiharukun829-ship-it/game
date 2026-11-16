@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>033 - 射的ゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>033. 射的ゲーム</h1>
+  <div class="info">スコア: <span id="sc">0</span></div><canvas id="c" width="400" height="260"></canvas><p>動く的をクリックして撃ち落とそう</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let sc=0,tg=Array.from({length:5},(_,i)=>({x:i*80,y:50+i*35,vx:2+i*0.4}));
+  c.onmousedown=e=>{const r=c.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  tg.forEach(t=>{if(Math.hypot(mx-t.x,my-t.y)<18){sc+=100;document.getElementById('sc').textContent=sc;t.x=-20;}});};
+  function loop(){x.clearRect(0,0,400,260);tg.forEach(t=>{t.x+=t.vx;if(t.x>420)t.x=-20;x.fillStyle='#ef4444';x.beginPath();x.arc(t.x,t.y,16,0,7);x.fill();});requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

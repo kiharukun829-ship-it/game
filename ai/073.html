@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>073 - ダンジョン探索（20階層）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>073. ダンジョン探索（20階層）</h1>
+  <div class="info">階層: <span id="fl">1</span>/20 ／ HP: <span id="hp">50</span> ／ 攻撃力: <span id="atk">10</span></div><div id="log" style="margin:15px"></div><button onclick="step()">先へ進む</button><button onclick="init()">最初から</button>
+  <script>let fl,hp,atk;function init(){fl=1;hp=50;atk=10;upd();log.textContent='ダンジョンに入った';}
+  function upd(){document.getElementById('fl').textContent=fl;document.getElementById('hp').textContent=hp;document.getElementById('atk').textContent=atk;}
+  function step(){if(hp<=0||fl>=20)return;fl++;const r=Math.random();
+  if(r<0.4){const dmg=Math.max(1,Math.floor(fl*1.5-atk*0.3));hp=Math.max(0,hp-dmg);log.textContent=`モンスターと交戦！${dmg}ダメージ受けた`;}
+  else if(r<0.7){atk+=3;log.textContent='宝箱から武器を発見！攻撃力+3';}
+  else{hp=Math.min(50,hp+15);log.textContent='泉を見つけた！HP+15回復';}
+  upd();if(hp===0)log.textContent='力尽きた...';else if(fl===20)log.textContent='🎉 20階層踏破クリア！';}
+  init();</script>
+</body>
+</html>

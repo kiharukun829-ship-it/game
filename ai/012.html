@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>012 - ライツアウト</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(5,55px);gap:4px;justify-content:center}.c{width:55px;height:55px;border:1px solid #333;cursor:pointer}.on{background:#facc15}.off{background:#333}</style>
+</head>
+<body>
+  <h1>012. ライツアウト</h1>
+  <div class="info" id="st">全部消灯させよう</div><div class="g" id="g"></div><button onclick="init()">リセット</button>
+  <script>let b;function init(){b=Array(25).fill(false);for(let i=0;i<10;i++)tog(Math.floor(Math.random()*25),false);draw();}
+  function tog(i,chk=true){const r=Math.floor(i/5),c=i%5;[[r,c],[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(([nr,nc])=>{if(nr>=0&&nr<5&&nc>=0&&nc<5)b[nr*5+nc]=!b[nr*5+nc];});if(chk)draw();}
+  function draw(){const g=document.getElementById('g');g.innerHTML='';b.forEach((v,i)=>{const d=document.createElement('div');d.className='c '+(v?'on':'off');d.onclick=()=>tog(i);g.appendChild(d);});
+  st.textContent=b.every(v=>!v)?'クリア！':'全部消灯させよう';}
+  init();</script>
+</body>
+</html>

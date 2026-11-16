@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>099 - 暗闇フラッシュライト探索</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>099. 暗闇フラッシュライト探索</h1>
+  <div class="info" id="st">マウスで照らして隠れた星をクリック！</div><canvas id="c" width="360" height="300"></canvas>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let mx=180,my=150,sx=80+Math.random()*200,sy=60+Math.random()*180;
+  c.onmousemove=e=>{const r=c.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;};
+  c.onmousedown=()=>{if(Math.hypot(mx-sx,my-sy)<25){st.textContent='🎉 星を見つけた！';sx=40+Math.random()*280;sy=40+Math.random()*220;}};
+  function loop(){x.fillStyle='#111';x.fillRect(0,0,360,300);x.save();x.beginPath();x.arc(mx,my,45,0,7);x.clip();
+  x.fillStyle='#fff';x.fillRect(0,0,360,300);x.font='28px sans-serif';x.fillText('⭐',sx-14,sy+10);x.restore();requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

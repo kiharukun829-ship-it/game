@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>092 - じゃんけんサバイバル5連勝</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>092. じゃんけんサバイバル5連勝</h1>
+  <div class="info">現在の連勝: <span id="st">0</span> / 5</div><button onclick="play(0)">✊</button><button onclick="play(1)">✌️</button><button onclick="play(2)">🖐</button><div id="msg" style="margin-top:15px"></div>
+  <script>let st=0;function play(p){const c=Math.floor(Math.random()*3),d=(p-c+3)%3;if(d===2){st++;msg.textContent=st>=5?'🎉 5連勝達成！':'勝ち！';}else if(d===1){st=0;msg.textContent='負け！最初から';}else msg.textContent='あいこ';document.getElementById('st').textContent=st;}</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>093 - 的当て大砲</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>093. 的当て大砲</h1>
+  <div class="info">命中数: <span id="sc">0</span></div><canvas id="c" width="440" height="260"></canvas><p>角度を選んで発射！</p><input type="range" id="ang" min="10" max="80" value="45"><button onclick="fire()">発射</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let bx=-10,by=0,vx=0,vy=0,tx=340,sc=0;
+  function fire(){const a=Number(ang.value)*Math.PI/180;bx=30;by=230;vx=Math.cos(a)*11;vy=-Math.sin(a)*11;}
+  function loop(){if(bx>0){vy+=0.3;bx+=vx;by+=vy;if(Math.hypot(bx-tx,by-220)<22){sc++;document.getElementById('sc').textContent=sc;tx=200+Math.random()*200;bx=-10;}if(by>260||bx>440)bx=-10;}
+  x.clearRect(0,0,440,260);x.fillStyle='#333';x.fillRect(15,220,25,25);x.fillStyle='#ef4444';x.beginPath();x.arc(tx,220,16,0,7);x.fill();
+  if(bx>0){x.fillStyle='#111';x.beginPath();x.arc(bx,by,6,0,7);x.fill();}requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

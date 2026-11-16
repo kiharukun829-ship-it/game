@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>046 - 簡易すごろくレース</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>046. 簡易すごろくレース</h1>
+  <div class="info">あなた: <span id="p1">0</span>/30 ／ CPU: <span id="p2">0</span>/30</div><div id="msg" style="margin:15px">サイコロを振ろう</div><button onclick="roll()">サイコロを振る</button><button onclick="init()">リセット</button>
+  <script>let p1,p2;function init(){p1=0;p2=0;upd();msg.textContent='サイコロを振ろう';}
+  function upd(){document.getElementById('p1').textContent=p1;document.getElementById('p2').textContent=p2;}
+  function roll(){if(p1>=30||p2>=30)return;const d1=Math.floor(Math.random()*6)+1,d2=Math.floor(Math.random()*6)+1;
+  p1=Math.min(30,p1+d1);p2=Math.min(30,p2+d2);upd();msg.textContent=`あなた:${d1}進んだ / CPU:${d2}進んだ`+(p1>=30?' → あなたの勝ち！':p2>=30?' → CPUの勝ち':'');}
+  init();</script>
+</body>
+</html>

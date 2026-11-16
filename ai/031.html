@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>031 - 弾幕よけサバイバル</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>031. 弾幕よけサバイバル</h1>
+  <div class="info">生存時間: <span id="sc">0.0</span>秒</div><canvas id="c" width="360" height="360"></canvas><button onclick="init()">リセット</button>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let px=180,py=180,bl=[],t0,ov;
+  function init(){bl=[];t0=performance.now();ov=false;for(let i=0;i<18;i++)spawn();}
+  function spawn(){const a=Math.random()*Math.PI*2;bl.push({x:Math.random()*360,y:0,dx:Math.cos(a)*2.5,dy:Math.abs(Math.sin(a)*2.5)+1});}
+  c.onmousemove=e=>{const r=c.getBoundingClientRect();px=e.clientX-r.left;py=e.clientY-r.top;};
+  function loop(){if(!ov){document.getElementById('sc').textContent=((performance.now()-t0)/1000).toFixed(1);
+  bl.forEach(b=>{b.x+=b.dx;b.y+=b.dy;if(b.x<0||b.x>360)b.dx*=-1;if(b.y<0||b.y>360)b.dy*=-1;if(Math.hypot(b.x-px,b.y-py)<10)ov=true;});}
+  x.clearRect(0,0,360,360);x.fillStyle='#2563eb';x.beginPath();x.arc(px,py,6,0,7);x.fill();
+  x.fillStyle='#ef4444';bl.forEach(b=>{x.beginPath();x.arc(b.x,b.y,5,0,7);x.fill();});
+  if(ov){x.fillStyle='#000';x.font='bold 24px sans-serif';x.textAlign='center';x.fillText('HIT!',180,180);}requestAnimationFrame(loop);}
+  init();loop();</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>006 - 神経衰弱</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(4,65px);gap:6px;justify-content:center}.cd{width:65px;height:80px;border:1px solid #333;background:#eee;font-size:30px;display:flex;align-items:center;justify-content:center;cursor:pointer}.cd.op{background:#fff}</style>
+</head>
+<body>
+  <h1>006. 神経衰弱</h1>
+  <div class="info">手数: <span id="mv">0</span></div><div class="g" id="g"></div><button onclick="init()">リセット</button>
+  <script>const ic=['🍎','🍌','🍇','🍓','🍒','🍑','🥝','🍍'];let fl,lk,mv;
+  function init(){fl=[];lk=false;mv=0;document.getElementById('mv').textContent=0;const g=document.getElementById('g');g.innerHTML='';
+  [...ic,...ic].sort(()=>Math.random()-0.5).forEach(v=>{const d=document.createElement('div');d.className='cd';d.textContent='?';d.onclick=()=>{
+  if(lk||d.classList.contains('op'))return;d.classList.add('op');d.textContent=v;fl.push({d,v});
+  if(fl.length===2){mv++;document.getElementById('mv').textContent=mv;lk=true;if(fl[0].v===fl[1].v){fl=[];lk=false;}else setTimeout(()=>{fl.forEach(z=>{z.d.classList.remove('op');z.d.textContent='?';});fl=[];lk=false;},600);}};g.appendChild(d);});}
+  init();</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>064 - 2進数変換クイズ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>064. 2進数変換クイズ</h1>
+  <div class="info">この2進数を10進数に直すと？ スコア: <span id="sc">0</span></div><div id="q" style="font-size:32px;margin:15px"></div><input id="in" type="number" style="font-size:18px;width:80px"><button onclick="chk()">回答</button>
+  <script>let ans,sc=0;function next(){ans=Math.floor(Math.random()*31)+1;q.textContent=ans.toString(2);document.getElementById('in').value='';}
+  function chk(){if(Number(document.getElementById('in').value)===ans){sc++;document.getElementById('sc').textContent=sc;next();}else alert('不正解！答え: '+ans);}
+  next();</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>018 - 迷路脱出ゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>018. 迷路脱出ゲーム</h1>
+  <div class="info" id="st">緑のゴールを目指せ！</div><canvas id="c" width="330" height="330"></canvas><button onclick="init()">新迷路</button><p>矢印キーで移動</p>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d'),N=11;let m,px,py;
+  function init(){m=Array.from({length:N},()=>Array(N).fill(1));
+  function carve(r,c){m[r][c]=0;[[0,2],[0,-2],[2,0],[-2,0]].sort(()=>Math.random()-0.5).forEach(([dr,dc])=>{const nr=r+dr,nc=c+dc;if(nr>0&&nr<N&&nc>0&&nc<N&&m[nr][nc]===1){m[r+dr/2][c+dc/2]=0;carve(nr,nc);}});}
+  carve(1,1);px=1;py=1;st.textContent='緑のゴールを目指せ！';draw();}
+  document.onkeydown=e=>{let nx=px,ny=py;if(e.key==='ArrowUp')ny--;if(e.key==='ArrowDown')ny++;if(e.key==='ArrowLeft')nx--;if(e.key==='ArrowRight')nx++;
+  if(m[ny]&&m[ny][nx]===0){px=nx;py=ny;draw();if(px===N-2&&py===N-2)st.textContent='🎉 脱出成功！';}};
+  function draw(){for(let r=0;r<N;r++)for(let col=0;col<N;col++){x.fillStyle=m[r][col]?'#333':'#fff';x.fillRect(col*30,r*30,30,30);}
+  x.fillStyle='#22c55e';x.fillRect((N-2)*30+4,(N-2)*30+4,22,22);x.fillStyle='#3b82f6';x.fillRect(px*30+6,py*30+6,18,18);}
+  init();</script>
+</body>
+</html>

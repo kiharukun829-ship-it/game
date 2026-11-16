@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>036 - じゃんけんゲーム</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>036. じゃんけんゲーム</h1>
+  <div class="info">勝ち: <span id="w">0</span> / 負け: <span id="l">0</span></div><div id="res" style="font-size:20px;margin:15px">手を選んでください</div><button onclick="play(0)">✊ グー</button><button onclick="play(1)">✌️ チョキ</button><button onclick="play(2)">🖐 パー</button>
+  <script>let w=0,l=0;const h=['✊ グー','✌️ チョキ','🖐 パー'];
+  function play(p){const c=Math.floor(Math.random()*3),d=(p-c+3)%3;let msg='あいこ';if(d===2){w++;msg='あなたの勝ち！';}if(d===1){l++;msg='負け...';}
+  document.getElementById('w').textContent=w;document.getElementById('l').textContent=l;res.textContent=`あなた:${h[p]} vs CPU:${h[c]} → ${msg}`;}</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>072 - RPGターン制バトル</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>072. RPGターン制バトル</h1>
+  <div class="info">勇者HP: <span id="hp1">100</span> ／ 魔王HP: <span id="hp2">120</span></div><div id="log" style="margin:15px">コマンドを選択！</div><button onclick="act(1)">⚔️ 攻撃</button><button onclick="act(2)">🔥 魔法(強打)</button><button onclick="act(3)">💚 回復</button><button onclick="init()">再戦</button>
+  <script>let hp1,hp2;function init(){hp1=100;hp2=120;upd();log.textContent='魔王が現れた！';}
+  function upd(){document.getElementById('hp1').textContent=hp1;document.getElementById('hp2').textContent=hp2;}
+  function act(t){if(hp1<=0||hp2<=0)return;let m='';
+  if(t===1){const d=15+Math.floor(Math.random()*10);hp2=Math.max(0,hp2-d);m=`勇者の攻撃！${d}ダメージ！`;}
+  if(t===2){if(Math.random()<0.65){hp2=Math.max(0,hp2-32);m='炎の魔法が直撃！32ダメージ！';}else m='魔法は外れた！';}
+  if(t===3){hp1=Math.min(100,hp1+25);m='HPを25回復した！';}
+  if(hp2>0){const ed=12+Math.floor(Math.random()*10);hp1=Math.max(0,hp1-ed);m+=` / 魔王の反撃！${ed}ダメージ`;}
+  upd();log.textContent=hp2===0?'🎉 魔王を倒した！':hp1===0?'💀 勇者は倒れた...':m;}
+  init();</script>
+</body>
+</html>

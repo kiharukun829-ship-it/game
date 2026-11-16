@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>083 - 隕石ディフェンス（クリック迎撃）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>083. 隕石ディフェンス（クリック迎撃）</h1>
+  <div class="info">スコア: <span id="sc">0</span> / 都市HP: <span id="hp">5</span></div><canvas id="c" width="400" height="360"></canvas>
+  <script>const c=document.getElementById('c'),x=c.getContext('2d');let mt=[],sc=0,hp=5,fr=0;
+  c.onmousedown=e=>{const r=c.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+  for(let i=mt.length-1;i>=0;i--)if(Math.hypot(mx-mt[i].x,my-mt[i].y)<22){mt.splice(i,1);sc+=10;document.getElementById('sc').textContent=sc;}};
+  function loop(){if(hp>0){fr++;if(fr%40===0)mt.push({x:20+Math.random()*360,y:0,vy:1.5+sc*0.01});
+  for(let i=mt.length-1;i>=0;i--){mt[i].y+=mt[i].vy;if(mt[i].y>340){mt.splice(i,1);hp--;document.getElementById('hp').textContent=hp;}}}
+  x.clearRect(0,0,400,360);x.fillStyle='#3b82f6';x.fillRect(0,340,400,20);
+  x.fillStyle='#d97706';mt.forEach(m=>{x.beginPath();x.arc(m.x,m.y,14,0,7);x.fill();});requestAnimationFrame(loop);}
+  loop();</script>
+</body>
+</html>

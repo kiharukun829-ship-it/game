@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>048 - あっち向いてホイ</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <h1>048. あっち向いてホイ</h1>
+  <div class="info">連勝: <span id="sc">0</span></div><div id="res" style="margin:15px">指さす方向を選ぼう</div><button onclick="play('↑')">↑ 上</button><button onclick="play('↓')">↓ 下</button><button onclick="play('←')">← 左</button><button onclick="play('→')">→ 右</button>
+  <script>let sc=0;const dirs=['↑','↓','←','→'];
+  function play(d){const cpu=dirs[Math.floor(Math.random()*4)];if(d===cpu){sc++;res.textContent=`相手も ${cpu} を向いた！勝ち！`;}else{sc=0;res.textContent=`相手は ${cpu} を向いた！ハズレ`;}document.getElementById('sc').textContent=sc;}</script>
+</body>
+</html>

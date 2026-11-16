@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>004 - マインスイーパー</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+table{border-collapse:collapse;margin:0 auto}td{width:30px;height:30px;border:1px solid #666;background:#ddd;font-weight:bold;cursor:pointer}td.open{background:#fff}td.m{background:#f88}</style>
+</head>
+<body>
+  <h1>004. マインスイーパー</h1>
+  <div class="info" id="msg">地雷12個</div><table id="g"></table><button onclick="init()">リセット</button><p>左:開く / 右:旗</p>
+  <script>let b,ov;function init(){b=[];ov=false;msg.textContent='プレイ中';const g=document.getElementById('g');g.innerHTML='';
+  for(let r=0;r<9;r++){b[r]=[];const tr=document.createElement('tr');for(let c=0;c<9;c++){const td=document.createElement('td');td.onclick=()=>op(r,c);td.oncontextmenu=e=>{e.preventDefault();fl(r,c);};tr.appendChild(td);b[r][c]={m:false,o:false,f:false,n:0,td};}g.appendChild(tr);}
+  let p=0;while(p<12){const r=Math.floor(Math.random()*9),c=Math.floor(Math.random()*9);if(!b[r][c].m){b[r][c].m=true;p++;}}
+  for(let r=0;r<9;r++)for(let c=0;c<9;c++){let cnt=0;nb(r,c,(nr,nc)=>{if(b[nr][nc].m)cnt++;});b[r][c].n=cnt;}}
+  function nb(r,c,fn){for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const nr=r+dr,nc=c+dc;if(nr>=0&&nr<9&&nc>=0&&nc<9)fn(nr,nc);}}
+  function fl(r,c){if(ov||b[r][c].o)return;b[r][c].f=!b[r][c].f;b[r][c].td.textContent=b[r][c].f?'🚩':'';}
+  function op(r,c){if(ov||b[r][c].o||b[r][c].f)return;const x=b[r][c];x.o=true;x.td.classList.add('open');
+  if(x.m){ov=true;msg.textContent='爆発！';b.flat().forEach(z=>{if(z.m){z.td.classList.add('m');z.td.textContent='💣';}});return;}
+  if(x.n)x.td.textContent=x.n;else nb(r,c,(nr,nc)=>op(nr,nc));
+  if(b.flat().filter(z=>z.o).length===69){ov=true;msg.textContent='クリア！';}}
+  init();</script>
+</body>
+</html>

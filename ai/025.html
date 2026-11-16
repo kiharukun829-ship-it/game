@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>025 - 数字早押し（1〜16）</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; text-align: center; background: #fff; color: #222; }
+  h1 { font-size: 20px; margin-bottom: 10px; }
+  .info { margin-bottom: 10px; font-size: 16px; }
+  button { padding: 6px 14px; font-size: 14px; cursor: pointer; margin: 4px; }
+  canvas { border: 1px solid #333; display: block; margin: 0 auto; }
+  p { font-size: 13px; color: #555; }
+.g{display:grid;grid-template-columns:repeat(4,60px);gap:6px;justify-content:center}.b{width:60px;height:60px;border:1px solid #333;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer}</style>
+</head>
+<body>
+  <h1>025. 数字早押し（1〜16）</h1>
+  <div class="info" id="st">次: 1</div><div class="g" id="g"></div><button onclick="init()">リセット</button>
+  <script>let cur,t0;function init(){cur=1;t0=performance.now();st.textContent='次: 1';const g=document.getElementById('g');g.innerHTML='';
+  Array.from({length:16},(_,i)=>i+1).sort(()=>Math.random()-0.5).forEach(n=>{const d=document.createElement('div');d.className='b';d.textContent=n;
+  d.onclick=()=>{if(n===cur){d.style.visibility='hidden';cur++;if(cur>16)st.textContent=`クリア！ ${((performance.now()-t0)/1000).toFixed(2)}秒`;else st.textContent='次: '+cur;}};g.appendChild(d);});}
+  init();</script>
+</body>
+</html>
