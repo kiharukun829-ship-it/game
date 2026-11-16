@@ -89,7 +89,10 @@
     let isGameActive = true;
 
     // 縦・横・斜めの勝利パターン（修正済み）
-    const winPatterns = [, [3, 4, 5], [6, 7, 8], // 横, [1, 4, 7], [2, 5, 8], // 縦, [2, 4, 6]             // 斜め
+    const winPatterns = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // 横
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // 縦
+      [0, 4, 8], [2, 4, 6]             // 斜め
     ];
 
     function initBoard() {
@@ -133,7 +136,7 @@
       if (moveIndex === null) {
         moveIndex = findBestMove(HUMAN);
       }
-      // 3. 中央が空いていれば取る（修正済み）
+      // 3. 中央が空いていれば取る
       if (moveIndex === null && boardState[4] === '') {
         moveIndex = 4;
       }
