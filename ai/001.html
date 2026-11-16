@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マルバツゲーム（CPU対戦）</title>
+<style>
+  body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
+  }
+  h1 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  #status {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #444;
+    height: 30px;
+  }
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 8px;
+  }
+  .cell {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+  }
+  .cell:hover {
+    background-color: #eef;
+  }
+  .cell.o {
+    color: #e74c3c;
+  }
+  .cell.x {
+    color: #3498db;
+  }
+  button {
+    margin-top: 25px;
+    padding: 10px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+  }
+  button:hover {
+    background-color: #555;
+  }
+</style>
+</head>
+<body>
+
+  <h1>マルバツゲーム（CPU対戦）</h1>
+  <div id="status">あなたの番です（○）</div>
+  <div class="board" id="board"></div>
+  <button onclick="resetGame()">リセット</button>
+
+  <script>
+    const boardElement = document.getElementById('board');
+    const statusElement = document.getElementById('status');
+    
+    const HUMAN = '○';
+    const CPU = '×';
+    let currentPlayer = HUMAN;
+    let boardState = ['', '', '', '', '', '', '', '', ''];
+    let isGameActive = true;
+
+    // 縦・横・斜めの勝利パターン（修正済み）
+    const winPatterns = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // 横
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // 縦
+      [0, 4, 8], [2, 4, 6]             // 斜め
+    ];
+
+    function initBoard() {
+      boardElement.innerHTML = '';
+      boardState.forEach((_, index) => {
+        const cellElement = document.createElement('div');
+        cellElement.classList.add('cell');
+        cellElement.dataset.index = index;
+        cellElement.addEventListener('click', handleCellClick);
+        boardElement.appendChild(cellElement);
+      });
+    }
+
+    function handleCellClick(event) {
+      const index = event.target.dataset.index;
+      if (boardState[index] !== '' || !isGameActive || currentPlayer !== HUMAN) return;
+
+      makeMove(index, HUMAN);
+
+      if (isGameActive) {
+        currentPlayer = CPU;
+        statusElement.textContent = 'CPUが考えています...';
+        setTimeout(cpuMove, 400);
+      }
+    }
+
+    function makeMove(index, player) {
+      boardState[index] = player;
+      const cell = boardElement.children[index];
+      cell.textContent = player;
+      cell.classList.add(player === HUMAN ? 'o' : 'x');
+      checkResult(player);
+    }
+
+    function cpuMove() {
+      if (!isGameActive) return;
+
+      // 1. CPU自身がリーチなら勝ちに行く
+      let moveIndex = findBestMove(CPU);
+      // 2. プレイヤーがリーチなら阻止する
+      if (moveIndex === null) {
+        moveIndex = findBestMove(HUMAN);
+      }
+      // 3. 中央が空いていれば取る
+      if (moveIndex === null && boardState[4] === '') {
+        moveIndex = 4;
+      }
+      // 4. それ以外は空いているマスからランダムに選ぶ
+      if (moveIndex === null) {
+        const emptyIndices = boardState
+          .map((val, idx) => (val === '' ? idx : null))
+          .filter(val => val !== null);
+        moveIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+      }
+
+      makeMove(moveIndex, CPU);
+
+      if (isGameActive) {
+        currentPlayer = HUMAN;
+        statusElement.textContent = 'あなたの番です（○）';
+      }
+    }
+
+    function findBestMove(player) {
+      for (const [a, b, c] of winPatterns) {
+        const line = [boardState[a], boardState[b], boardState[c]];
+        if (line.filter(val => val === player).length === 2 && line.includes('')) {
+          if (boardState[a] === '') return a;
+          if (boardState[b] === '') return b;
+          if (boardState[c] === '') return c;
+        }
+      }
+      return null;
+    }
+
+    function checkResult(player) {
+      const roundWon = winPatterns.some(([a, b, c]) => {
+        return boardState[a] === player && boardState[b] === player && boardState[c] === player;
+      });
+
+      if (roundWon) {
+        statusElement.textContent = player === HUMAN ? 'あなたの勝ちです！' : 'CPUの勝ちです！';
+        isGameActive = false;
+        return;
+      }
+
+      if (!boardState.includes('')) {
+        statusElement.textContent = '引き分けです！';
+        isGameActive = false;
+        return;
+      }
+    }
+
+    function resetGame() {
+      currentPlayer = HUMAN;
+      boardState = ['', '', '', '', '', '', '', '', ''];
+      isGameActive = true;
+      statusElement.textContent = 'あなたの番です（○）';
+      initBoard();
+    }
+
+    initBoard();
+  </script>
+
+</body>
+</html>
