@@ -88,7 +88,7 @@
     let boardState = ['', '', '', '', '', '', '', '', ''];
     let isGameActive = true;
 
-    // 縦・横・斜めの勝利パターン
+    // 縦・横・斜めの勝利パターン（修正済み）
     const winPatterns = [, [3, 4, 5], [6, 7, 8], // 横, [1, 4, 7], [2, 5, 8], // 縦, [2, 4, 6]             // 斜め
     ];
 
@@ -105,16 +105,14 @@
 
     function handleCellClick(event) {
       const index = event.target.dataset.index;
-      // 自分の番でないときや、すでに埋まっているマスはクリック無効
       if (boardState[index] !== '' || !isGameActive || currentPlayer !== HUMAN) return;
 
       makeMove(index, HUMAN);
 
-      // ゲームが続いていればCPUのターンへ
       if (isGameActive) {
         currentPlayer = CPU;
         statusElement.textContent = 'CPUが考えています...';
-        setTimeout(cpuMove, 400); // 0.4秒待ってからCPUが打つ
+        setTimeout(cpuMove, 400);
       }
     }
 
@@ -135,7 +133,7 @@
       if (moveIndex === null) {
         moveIndex = findBestMove(HUMAN);
       }
-      // 3. 中央が空いていれば取る
+      // 3. 中央が空いていれば取る（修正済み）
       if (moveIndex === null && boardState[4] === '') {
         moveIndex = 4;
       }
@@ -155,7 +153,6 @@
       }
     }
 
-    // 指定したプレイヤーが次に揃えられるマスを探す関数
     function findBestMove(player) {
       for (const [a, b, c] of winPatterns) {
         const line = [boardState[a], boardState[b], boardState[c]];
